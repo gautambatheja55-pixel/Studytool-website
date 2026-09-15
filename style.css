@@ -127,4 +127,37 @@ html {
     scroll-behavior: smooth;
 }
 
+.ai_chatbot{
+    position: fixed;
+    bottom: 25px;
+    left: 25px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0082e6;
+    color: white;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+.ai_chatbot:hover{
+    width: 150px;
+    border-radius: 30px;
+    box-shadow: 5px 5px 20px black;
+}
+.ai_text{
+    display: none;
+    margin-left: 8px;
+}
 
+.ai_chatbot:hover .ai_text{
+    display: inline;
+}
+.ai_chatbot:hover .ai_icon{
+    opacity: 0;
+}
+.ai_chatbot:hover .ai_text{
+    display: inline;
+}
