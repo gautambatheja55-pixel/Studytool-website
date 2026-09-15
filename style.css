@@ -127,6 +127,8 @@ html {
     scroll-behavior: smooth;
 }
 
+
+/* AI chatbot css starts here */
 .ai_chatbot{
     position: fixed;
     bottom: 25px;
@@ -209,4 +211,41 @@ html {
     font-size: 20px;
     padding: 10px;
     overflow:hidden;
+}
+
+/* AI chatbot css ends here */
+/* Pomodoro css starts hear  */
+
+.pomodoro{
+    display: flex;
+}
+.timer{
+    margin-top: 60px;
+    margin-left: 30px;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    border: 10px solid orange;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 35px;
+}
+#start{
+    width: 100px;
+    height: 50px;
+    margin-top:30px ;
+    margin-left: 20px;
+    border-radius: 35px;
+    border: 1px solid;
+    color:#0082e6 ;
+
+}
+.timer-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#start:hover{
+    cursor: pointer;
 }
