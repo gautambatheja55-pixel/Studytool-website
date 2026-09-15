@@ -161,3 +161,52 @@ html {
 .ai_chatbot:hover .ai_text{
     display: inline;
 }
+
+.ai_fullscreen{
+    background-color: orange;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transform: scale(0.9);
+    pointer-events: none;
+}
+
+.ai_fullscreen.open {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+}
+
+.ai_fullscreen{
+    transition: all 0.4s ease;
+}
+.ai_close{
+    border-radius: 30px;
+    border: none;
+    height: 60px;
+    width: 60px;
+    position: fixed;
+    bottom: 25px;
+    left: 20px;
+}
+#heading{
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: 40px ;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.searchbar{
+    border: none;
+    display: block;
+    margin: 0 auto;
+    border-radius: 30px;
+    width: 349px;
+    height: 67px;
+    font-size: 20px;
+    padding: 10px;
+    overflow:hidden;
+}
