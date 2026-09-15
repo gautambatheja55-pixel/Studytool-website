@@ -4,7 +4,7 @@ export default async function(req,res){
             method: "POST",
             headers:{
                 "Content-Type":"application/json",
-                "Authorization":`Bearer ${process.env.Chatbot}`
+                "Authorization":`Bearer ${process.env.GROQ_API_KEY}`
             },
             body:JSON.stringify({
                 model:"openai/gpt-oss-120b",
@@ -22,4 +22,6 @@ export default async function(req,res){
         });
     const data=await response.json();
     res.status(200).json(data);
+    console.log("Chatbot exists:", !!process.env.GROQ_API_KEY);
+    console.log("Chatbot length:", process.env.GROQ_API_KEY?.length);
 }
