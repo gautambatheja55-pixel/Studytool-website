@@ -39,6 +39,11 @@ async function sendMessage(){
     });
 
     const data=await sending.json();
-    console.log(data)
+    console.log("api response",data);
+    if (!data.choices){
+        console.log("api error",data);
+        return;
+    }
     const aimessage=data.choices[0].message.content;
+    console.log(aimessage)
 }
