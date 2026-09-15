@@ -2,7 +2,7 @@ const chatbot=document.querySelector(".ai_chatbot");
 const fullscreen=document.querySelector(".ai_fullscreen");
 const closebutton=document.querySelector(".ai_close");
 const searchbar=document.querySelector(".searchbar");
-
+const aioutput=document.querySelector(".aioutput");
 chatbot.addEventListener("click", function(){
     fullscreen.classList.add("open");
 });
@@ -39,11 +39,6 @@ async function sendMessage(){
     });
 
     const data=await sending.json();
-    console.log("api response",data);
-    if (!data.choices){
-        console.log("api error",data);
-        return;
-    }
-    const aimessage=data.choices[0].message.content;
-    console.log(aimessage)
+    aimessage=data.choices[0].message.content;
+    aioutput.textContent = aimessage;
 }
