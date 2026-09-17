@@ -29,6 +29,7 @@ async function sendMessage(){
         alert("Value is empty");
         return;
     }
+    aioutput.innerHTML="Thinking harder than you..."
     const sending=await fetch("/api/chat",{
         method:"POST",
         headers:{
@@ -40,5 +41,5 @@ async function sendMessage(){
 
     const data=await sending.json();
     aimessage=data.choices[0].message.content;
-    aioutput.textContent = aimessage;
+    aioutput.innerHTML= aimessage;
 }

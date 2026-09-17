@@ -11,7 +11,7 @@ export default async function(req,res){
                 messages: [
                     {
                         role:"system",
-                        content:`You are an AI teacher explaining a user his acadmic doubt`
+                        content:`You are an AI teacher explaining a user his acadmic doubt keep it concise and prevent long answers return the response only in HTML but do not use <html>,<head>,or <body>`
                     },
                     {
                         role:"user",
@@ -22,6 +22,4 @@ export default async function(req,res){
         });
     const data=await response.json();
     res.status(200).json(data);
-    console.log("Chatbot exists:", !!process.env.GROQ_API_KEY);
-    console.log("Chatbot length:", process.env.GROQ_API_KEY?.length);
 }
