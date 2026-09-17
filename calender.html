@@ -14,10 +14,13 @@
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
     >
+
+    <script src="script.js" defer></script>
 </head>
 
 <body>
 
+<!-- NAVIGATION BAR -->
 <nav>
     <label class="logo">Study Site</label>
 
@@ -30,6 +33,8 @@
     </ul>
 </nav>
 
+
+<!-- CALENDAR -->
 <div class="container">
 
     <div class="left">
@@ -76,6 +81,8 @@
 
     </div>
 
+
+    <!-- EVENTS -->
     <div class="right">
 
         <div class="today-date">
@@ -128,7 +135,27 @@
 
 </div>
 
-<script src="script.js"></script>
+
+<!-- AI CHATBOT BUTTON -->
+<div class="ai_chatbot">
+    <span class="ai_icon">🤖 AI</span>
+    <span class="ai_text">Ask Doubts</span>
+</div>
+
+
+<!-- AI FULLSCREEN CHAT -->
+<div class="ai_fullscreen">
+
+    <button class="ai_close">X</button>
+
+    <h1 id="heading">Ask Your Doubts Here</h1>
+
+    <textarea
+        class="searchbar"
+        placeholder="Type your question here..."
+    ></textarea>
+
+</div>
 
 </body>
 </html>
