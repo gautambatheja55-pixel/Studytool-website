@@ -19,10 +19,11 @@ nav {
 }
 
 label.logo {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     color: white;
-    font-size: 25px;
+    font-size: 40px;
     line-height: 80px;
-    padding: 0 100px;
+    padding: 0 30px;
     font-weight: bold;
 }
 
@@ -131,10 +132,10 @@ html {
 /* AI chatbot css starts here */
 .ai_chatbot{
     position: fixed;
-    bottom: 25px;
-    left: 25px;
-    width: 60px;
-    height: 60px;
+    bottom: 30px;
+    left: 30px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -143,6 +144,7 @@ html {
     color: white;
     cursor: pointer;
     transition: all 0.4s ease;
+    font-size: 20px;
 }
 .ai_chatbot:hover{
     width: 150px;
@@ -171,7 +173,7 @@ html {
     top: 0;
     left: 0;
     opacity: 0;
-    transform: scale(0.9);
+    transform: scale(0.8);
     pointer-events: none;
     background:
         radial-gradient(
@@ -210,10 +212,32 @@ html {
     left: 20px;
 }
 #heading{
+    font-size: 46px;
     text-align: center;
     margin-top: 100px;
     margin-bottom: 40px ;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background:linear-gradient(
+        90deg,
+        #006eff,
+        #7b4dff,
+        #00aaff,
+        #006eff
+    );
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation:headingColor 4s linear infinite;
+}
+
+@keyframes headingColor {
+    from {
+        background-position: 0% 50%;
+    }
+    to {
+        background-position: 300% 50%;
+    }
 }
 
 .searchbar{
@@ -229,7 +253,7 @@ html {
     resize: none;
 }
 
-.aioutput span{
+.aioutput {
     padding: 14px;
     display: block;
     width: fit-content;
@@ -283,3 +307,4 @@ html {
 #start:hover{
     cursor: pointer;
 }
+/* pomodoro css ends here */
