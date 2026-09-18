@@ -167,6 +167,7 @@ html {
 }
 
 .ai_fullscreen{
+    overflow-y: auto;
     position: fixed;
     width: 100%;
     height: 100%;
@@ -203,6 +204,7 @@ html {
     transition: all 0.4s ease;
 }
 .ai_close{
+    cursor: pointer;
     border-radius: 30px;
     border: none;
     height: 60px;
