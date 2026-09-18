@@ -1,5 +1,5 @@
-let timerDisplay = document.getElementById("timer");
-let startButton = document.getElementById("start");
+let timerDisplay = document.getElementById("timer") || document.querySelector(".timer");
+let startButton = document.getElementById("start") || document.querySelector(".start");
 let resetButton = document.getElementById("reset");
 let pauseButton = document.getElementById("pause");
 
@@ -88,7 +88,9 @@ function resetTimer() {
     isWorkTime = true;
     timerRemaining = Number(workInput.value || 25) * 60;
     updateDisplay(timerRemaining);
-    timerDisplay.style.color = "black";
+    if (timerDisplay && timerDisplay.style) {
+        timerDisplay.style.color = "black";
+    }
     toggleButtons();
 }
 
