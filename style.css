@@ -272,8 +272,7 @@ html {
 }
 
 /* AI chatbot css ends here */
-/* Pomodoro css starts hear  */
-
+/* Pomodoro css starts here */
 .pomodoro{
     display: flex;
 }
@@ -307,4 +306,7 @@ html {
 #start:hover{
     cursor: pointer;
 }
+
+
+
 /* pomodoro css ends here */
