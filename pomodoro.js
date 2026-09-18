@@ -1,58 +1,121 @@
-const timer = document.getElementById('timer');
-const start = document.getElementById('start');
-const reset = document.getElementById('reset');
-const pause = document.getElementById('pause');
+let timerDisplay = document.getElementById("timer");
+let startButton = document.getElementById("start");
+let resetButton = document.getElementById("reset");
+let pauseButton = document.getElementById("pause");
 
+let workInput = document.getElementById("work-time");
+let breakInput = document.getElementById("break-time");
 
-let time = 25 * 60;
-let interval;
+let alarmSound = document.getElementById("beep-sound");
 
-start.addEventListener('click', () => {
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
-    timer.innerHTML = 
-`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+let isRunning = false;
+let isWorkTime = true;
+let timerInterval = null;
+let timerRemaining = null;
 
-});
-
-const StartTimer = () => {
-    interval = setInterval(() => {
-        time--;
-        updateTimer();
-
-        if (time === 0) {
-            clearInterval(interval);
-            alert("Time's up! Take a break.");
-            time = 25 * 60;
-            updateTimer();
-
-        }
-    }, 1000);
-
+function getCurrentDuration() {
+    const minutes = isWorkTime ? Number(workInput.value || 25) : Number(breakInput.value || 5);
+    return minutes * 60;
 }
 
-const PauseTimer = () => clearInterval(interval);
+function addZoomEffect() {
+    if (timerDisplay && timerDisplay.classList) {
+        timerDisplay.classList.add("timer-zoom");
+        setTimeout(() => timerDisplay.classList.remove("timer-zoom"), 200);
+    }
+}
 
-const ResetTimer = () => {
-    clearInterval(interval);
-    time = 25 * 60;
+workInput.addEventListener("input", () => {
+    if (!isRunning) {
+        isWorkTime = true;
+        timerRemaining = Number(workInput.value || 25) * 60;
+        updateDisplay(timerRemaining);
+        toggleButtons();
+    }
+});
 
-};
+breakInput.addEventListener("input", () => {
+    if (!isRunning) {
+        isWorkTime = false;
+        timerRemaining = Number(breakInput.value || 5) * 60;
+        updateDisplay(timerRemaining);
+        toggleButtons();
+    }
+});
+
+function startTimer() {
+    if (isRunning) return;
+
+    if (timerRemaining === null || timerRemaining <= 0) {
+        timerRemaining = getCurrentDuration();
+    }
+
+    isRunning = true;
+    timerInterval = setInterval(() => {
+        if (timerRemaining <= 0) {
+            if (alarmSound && typeof alarmSound.play === "function") {
+                alarmSound.play();
+            }
+            clearInterval(timerInterval);
+            isRunning = false;
+            isWorkTime = !isWorkTime;
+            timerRemaining = getCurrentDuration();
+            updateDisplay(timerRemaining);
+            addZoomEffect();
+            toggleButtons();
+            return;
+        }
+
+        timerRemaining--;
+        updateDisplay(timerRemaining);
+        addZoomEffect();
+    }, 1000);
+
+    toggleButtons();
+}
+
+function pauseTimer() {
+    if (!isRunning) return;
+
+    isRunning = false;
+    clearInterval(timerInterval);
+    toggleButtons();
+}
+
+function resetTimer() {
+    isRunning = false;
+    clearInterval(timerInterval);
+    isWorkTime = true;
+    timerRemaining = Number(workInput.value || 25) * 60;
+    updateDisplay(timerRemaining);
+    timerDisplay.style.color = "black";
+    toggleButtons();
+}
+
+function updateDisplay(seconds) {
+    const safeSeconds = Math.max(0, Number(seconds) || 0);
+    const minutes = Math.floor(safeSeconds / 60);
+    const sec = safeSeconds % 60;
+
+    if (timerDisplay) {
+        timerDisplay.textContent = `${minutes.toString().padStart(2, "0")}:${sec.toString().padStart(2, "0")}`;
+    }
+}
+
+function toggleButtons() {
+    if (startButton) startButton.disabled = isRunning;
+    if (pauseButton) pauseButton.disabled = !isRunning;
+    if (resetButton) resetButton.disabled = timerRemaining === null || (!isRunning && timerRemaining === 0);
+}
+
+if (timerRemaining === null) {
+    timerRemaining = Number(workInput.value || 25) * 60;
+}
+updateDisplay(timerRemaining);
+toggleButtons();
+
+startButton.addEventListener("click", startTimer);
+pauseButton.addEventListener("click", pauseTimer);
+resetButton.addEventListener("click", resetTimer);
 
 
-
-start.addEventListener("click", StartTimer);
-pause.addEventListener("click", PauseTimer);
-reset.addEventListener("click", ResetTimer);
-
-
-
-
-
-    
-
-
-
-
-
-    
