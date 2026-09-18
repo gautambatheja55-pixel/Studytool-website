@@ -211,7 +211,7 @@ html {
     bottom: 25px;
     left: 20px;
 }
-#heading{
+.heading{
     font-size: 46px;
     text-align: center;
     margin-top: 100px;
@@ -288,7 +288,7 @@ html {
     align-items: center;
     font-size: 35px;
 }
-#start{
+.start{
     width: 100px;
     height: 50px;
     margin-top:30px ;
@@ -296,6 +296,7 @@ html {
     border-radius: 35px;
     border: 1px solid;
     color:#0082e6 ;
+    cursor: pointer;
 
 }
 .timer-section{
@@ -310,3 +311,27 @@ html {
 
 
 /* pomodoro css ends here */
+/* To do list css starts here  */
+
+.completed{
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+.todo{
+    text-align: center;
+}
+
+#taskInput{
+    font-size: 15px;
+    border-radius: 24px;
+    border: solid;
+    padding: 12px;
+    margin-bottom: 25px;
+}
+
+li{
+    cursor: pointer;
+    margin: 10px;
+    font-size: 20px;
+}

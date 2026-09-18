@@ -3,6 +3,10 @@ const fullscreen=document.querySelector(".ai_fullscreen");
 const closebutton=document.querySelector(".ai_close");
 const searchbar=document.querySelector(".searchbar");
 const aioutput=document.querySelector(".aioutput");
+const taskInput=document.getElementById("taskInput");
+const addTask=document.querySelector(".start");
+const taskList=document.querySelector(".taskList");
+
 chatbot.addEventListener("click", function(){
     fullscreen.classList.add("open");
 });
@@ -42,4 +46,25 @@ async function sendMessage(){
     const data=await sending.json();
     aimessage=data.choices[0].message.content;
     aioutput.innerHTML= aimessage;
-}
+};
+
+taskInput.addEventListener("keydown",function(event){
+    if (event.key === "Enter"){
+        event.preventDefault();
+        figureityourself();
+    }
+
+addTask.addEventListener("click",figureityourself);
+
+function figureityourself(){
+    const todotask=taskInput.value.trim();
+    const li=document.createElement("li");
+    li.textContent=todotask;
+    li.addEventListener("click",function(){
+    li.classList.toggle("completed");
+    });
+    taskList.appendChild(li);
+    taskInput.value="";
+    };
+});
+
