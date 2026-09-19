@@ -680,16 +680,6 @@ body {
     border-radius: 0 !important;
 }
 
-.calendar .goto-today .goto button::before {
-    content: "GO";
-    display: block;
-}
-
-.calendar .goto-today > button::before {
-    content: "TODAY";
-    display: block;
-}
-
 .calendar .goto-today .goto button:hover,
 .calendar .goto-today > button:hover {
     background-color: #04a9d8 !important;
