@@ -22,13 +22,13 @@
 /* Base Body Layout */
 body {
     position: relative;
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     background-color: #e2e1dc;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 /* Main Container */
@@ -36,7 +36,8 @@ body {
     position: relative;
     width: 100%;
     max-width: none;
-    min-height: 850px;
+    height: 100%;
+    min-height: 0;
     flex: 1;
     margin: 0;
     padding: 5px;
@@ -49,6 +50,7 @@ body {
 
 .left {
     width: 60%;
+    height: 100%;
     padding: 20px;
 }
 
@@ -85,7 +87,7 @@ body {
 
 .calendar .month {
     width: 100%;
-    height: 150px;
+    height: 100px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -105,9 +107,10 @@ body {
     color: var(--primary-clr);
 }
 
+/* Weekdays */
 .calendar .weekdays {
     width: 100%;
-    height: 50px;
+    height: 40px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -126,6 +129,7 @@ body {
     justify-content: center;
 }
 
+/* Days */
 .calendar .days {
     width: 100%;
     display: flex;
@@ -135,12 +139,13 @@ body {
     padding: 0 20px;
     font-size: 1rem;
     font-weight: 500;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    flex: 1;
 }
 
 .calendar .days .day {
     width: 14.28%;
-    height: 90px;
+    height: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -225,15 +230,16 @@ body {
     padding-bottom: 10px;
 }
 
+/* Go To Today */
 .calendar .goto-today {
     width: 100%;
-    height: 50px;
+    height: 45px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 5px;
     padding: 0 20px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     color: var(--primary-clr);
 }
 
@@ -275,10 +281,11 @@ body {
     border-radius: 0;
 }
 
+/* Right Side */
 .container .right {
     position: relative;
     width: 40%;
-    min-height: 100%;
+    height: 100%;
     padding: 20px 0;
 }
 
@@ -292,7 +299,7 @@ body {
     justify-content: space-between;
     padding: 0 40px;
     padding-left: 70px;
-    margin-top: 50px;
+    margin-top: 30px;
     margin-bottom: 20px;
     text-transform: capitalize;
 }
@@ -304,8 +311,8 @@ body {
 
 .events {
     width: 100%;
-    height: 100%;
-    max-height: 600px;
+    height: calc(100% - 100px);
+    max-height: none;
     overflow-x: hidden;
     overflow-y: auto;
     display: flex;
@@ -388,6 +395,7 @@ body {
     display: flex;
 }
 
+/* Add Event Button */
 .add-event {
     position: absolute;
     bottom: 30px;
@@ -425,6 +433,7 @@ body {
     color: #878895;
 }
 
+/* Add Event Box */
 .add-event-wrapper {
     position: absolute;
     bottom: 100px;
@@ -623,4 +632,10 @@ body {
 .credits a:hover {
     text-decoration: underline;
 }
+```
+
+**The main changes are only:** `height: 100vh`, `overflow: hidden`, removing the `850px` minimum, and reducing the calendar day height from `90px` to `70px`. This prevents the page itself from becoming taller than the viewport.
+
+If your **navbar is about 60px tall**, this should leave the calendar filling the area directly underneath it.
+
 
