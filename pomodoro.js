@@ -13,6 +13,19 @@ let isWorkTime = true;
 let timerInterval = null;
 let timerRemaining = null;
 
+let sessionCount = 0;
+let completedSessions = 0;
+let totalTime = 0;
+let Totalstreaks = 0;
+
+const completedSessionsDisplay = document.getElementById("completedSessions");
+const TotaltimeDisplay = document.getElementById("Totaltime");
+const TotalstreaksDisplay = document.getElementById("Totalstreaks");
+
+
+
+
+
 function getCurrentDuration() {
     const minutes = isWorkTime ? Number(workInput.value || 25) : Number(breakInput.value || 5);
     return minutes * 60;
@@ -43,6 +56,22 @@ breakInput.addEventListener("input", () => {
     }
 });
 
+function updateStats() {
+    if (completedSessionsDisplay) {
+        completedSessionsDisplay.textContent = completedSessions;
+    }
+    const hours = Math.floor(totalTime / 3600);
+    const minutes = Math.floor((totalTime % 3600) / 60);
+
+    if (TotaltimeDisplay) {
+        TotaltimeDisplay.textContent = `${hours}h ${minutes}m`;
+    }
+    if (TotalstreaksDisplay) {
+        TotalstreaksDisplay.textContent = Totalstreaks;
+    }
+}
+
+
 function startTimer() {
     if (isRunning) return;
 
@@ -51,6 +80,10 @@ function startTimer() {
     }
 
     isRunning = true;
+
+    const sessionDuration = timerRemaining;
+
+
     timerInterval = setInterval(() => {
         if (timerRemaining <= 0) {
             if (alarmSound && typeof alarmSound.play === "function") {
@@ -58,8 +91,18 @@ function startTimer() {
             }
             clearInterval(timerInterval);
             isRunning = false;
+
+            if (isWorkTime) {
+                completedSessions++;
+                totalTime += sessionDuration;
+                Totalstreaks++;
+        
+            }
+
+
             isWorkTime = !isWorkTime;
             timerRemaining = getCurrentDuration();
+            updateStats();
             updateDisplay(timerRemaining);
             addZoomEffect();
             toggleButtons();
@@ -114,6 +157,7 @@ if (timerRemaining === null) {
     timerRemaining = Number(workInput.value || 25) * 60;
 }
 updateDisplay(timerRemaining);
+updateStats();
 toggleButtons();
 
 startButton.addEventListener("click", startTimer);
