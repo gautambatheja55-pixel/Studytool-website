@@ -634,8 +634,6 @@ body {
 .credits a:hover {
     text-decoration: underline;
 }
-
-/* Stop the whole webpage from scrolling */
 html,
 body {
     width: 100%;
@@ -652,33 +650,61 @@ body {
     min-height: 0;
 }
 
-/* Go and Today buttons - blue */
-.calendar .goto-today button,
-.calendar .goto-today .goto button {
-    background-color: var(--primary-clr);
-    color: #fff;
-    border-color: var(--primary-clr);
+.calendar .goto-today {
+    width: 100%;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 0 20px;
+    margin-bottom: 10px;
+    color: var(--primary-clr);
 }
 
-/* Go button hover */
+.calendar .goto-today .goto {
+    display: flex;
+    align-items: center;
+    height: 35px;
+    border: 1px solid var(--primary-clr);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.calendar .goto-today .goto input {
+    width: 120px;
+    height: 100%;
+    outline: none;
+    border: none;
+    padding: 0 10px;
+    color: var(--primary-clr);
+    background-color: #fff;
+}
+
+.calendar .goto-today .goto button {
+    height: 100%;
+    padding: 0 12px;
+    border: none;
+    border-left: 1px solid var(--primary-clr);
+    border-radius: 0;
+    background-color: var(--primary-clr);
+    color: #fff;
+    cursor: pointer;
+}
+.calendar .goto-today > button {
+    height: 35px;
+    padding: 0 12px;
+    border: 1px solid var(--primary-clr);
+    border-radius: 5px;
+    background-color: var(--primary-clr);
+    color: #fff;
+    cursor: pointer;
+}
+
 .calendar .goto-today .goto button:hover,
 .calendar .goto-today > button:hover {
     background-color: #04a9d8;
     color: #fff;
 }
 
-/* Go input border */
-.calendar .goto-today .goto {
-    border-color: var(--primary-clr);
-}
-
-/* Input text */
-.calendar .goto-today .goto input {
-    color: var(--primary-clr);
-}
-.calendar .goto-today button {
-    background-color: var(--primary-clr);
-    color: #fff;
-    border: 1px solid var(--primary-clr);
-}
 
