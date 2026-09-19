@@ -676,4 +676,9 @@ body {
 .calendar .goto-today .goto input {
     color: var(--primary-clr);
 }
+.calendar .goto-today button {
+    background-color: var(--primary-clr);
+    color: #fff;
+    border: 1px solid var(--primary-clr);
+}
 
