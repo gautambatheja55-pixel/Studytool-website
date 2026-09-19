@@ -652,3 +652,28 @@ body {
     min-height: 0;
 }
 
+/* Go and Today buttons - blue */
+.calendar .goto-today button,
+.calendar .goto-today .goto button {
+    background-color: var(--primary-clr);
+    color: #fff;
+    border-color: var(--primary-clr);
+}
+
+/* Go button hover */
+.calendar .goto-today .goto button:hover,
+.calendar .goto-today > button:hover {
+    background-color: #04a9d8;
+    color: #fff;
+}
+
+/* Go input border */
+.calendar .goto-today .goto {
+    border-color: var(--primary-clr);
+}
+
+/* Input text */
+.calendar .goto-today .goto input {
+    color: var(--primary-clr);
+}
+
