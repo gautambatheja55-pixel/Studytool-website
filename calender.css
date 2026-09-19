@@ -546,10 +546,7 @@ body {
 /* Media Query */
 @media screen and (max-width: 1000px) {
     .container {
-        min-height: 100vh;
-        flex-direction: column;
-        border-radius: 0;
-    }
+        min-height: 0;
 
     .container .left {
         width: 100%;
