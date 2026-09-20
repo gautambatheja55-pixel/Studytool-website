@@ -22,9 +22,14 @@ const completedSessionsDisplay = document.getElementById("completedSessions");
 const TotaltimeDisplay = document.getElementById("Totaltime");
 const TotalstreaksDisplay = document.getElementById("Totalstreaks");
 
-
-
-
+function readStat(key, fallbackValue = 0) {
+    try {
+        const value = Number(localStorage.getItem(key));
+        return Number.isFinite(value) ? value : fallbackValue;
+    } catch (error) {
+        return fallbackValue;
+    }
+}
 
 function getCurrentDuration() {
     const minutes = isWorkTime ? Number(workInput.value || 25) : Number(breakInput.value || 5);
@@ -56,6 +61,22 @@ breakInput.addEventListener("input", () => {
     }
 });
 
+function saveStats() {
+    try {
+        localStorage.setItem("completedSessions", String(completedSessions));
+        localStorage.setItem("totalTime", String(totalTime));
+        localStorage.setItem("Totalstreaks", String(Totalstreaks));
+    } catch (error) {
+        console.warn("Unable to save Pomodoro stats:", error);
+    }
+}
+
+function loadStats() {
+    completedSessions = readStat("completedSessions", 0);
+    totalTime = readStat("totalTime", 0);
+    Totalstreaks = readStat("Totalstreaks", 0);
+}
+
 function updateStats() {
     if (completedSessionsDisplay) {
         completedSessionsDisplay.textContent = completedSessions;
@@ -75,6 +96,10 @@ function updateStats() {
 function startTimer() {
     if (isRunning) return;
 
+    if (timerInterval) {
+        clearInterval(timerInterval);
+    }
+
     if (timerRemaining === null || timerRemaining <= 0) {
         timerRemaining = getCurrentDuration();
     }
@@ -82,7 +107,6 @@ function startTimer() {
     isRunning = true;
 
     const sessionDuration = timerRemaining;
-
 
     timerInterval = setInterval(() => {
         if (timerRemaining <= 0) {
@@ -96,6 +120,8 @@ function startTimer() {
                 completedSessions++;
                 totalTime += sessionDuration;
                 Totalstreaks++;
+                saveStats();
+
         
             }
 
@@ -122,12 +148,14 @@ function pauseTimer() {
 
     isRunning = false;
     clearInterval(timerInterval);
+    timerInterval = null;
     toggleButtons();
 }
 
 function resetTimer() {
     isRunning = false;
     clearInterval(timerInterval);
+    timerInterval = null;
     isWorkTime = true;
     timerRemaining = Number(workInput.value || 25) * 60;
     updateDisplay(timerRemaining);
@@ -153,6 +181,7 @@ function toggleButtons() {
     if (resetButton) resetButton.disabled = timerRemaining === null || (!isRunning && timerRemaining === 0);
 }
 
+loadStats();
 if (timerRemaining === null) {
     timerRemaining = Number(workInput.value || 25) * 60;
 }
@@ -163,5 +192,7 @@ toggleButtons();
 startButton.addEventListener("click", startTimer);
 pauseButton.addEventListener("click", pauseTimer);
 resetButton.addEventListener("click", resetTimer);
+
+
 
 
