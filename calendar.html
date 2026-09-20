@@ -1,152 +1,726 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Site | Calendar</title>
 
-    <title>Calendar</title>
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
 
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="calender.css">
+body{
+    background:#f1f1ef;
+}
 
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-    >
+nav{
+    height:100px;
+    background:#4f89e8;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 50px;
+}
 
-    <script src="calender.js" defer></script>
-      <script src="script.js" defer></script>
+.logo{
+    color:white;
+    font-size:50px;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+nav ul{
+    display:flex;
+    gap:60px;
+    list-style:none;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    font-size:22px;
+}
+
+nav ul a:hover{
+    opacity:.75;
+}
+
+.container{
+    width:95%;
+    max-width:1300px;
+    min-height:650px;
+    margin:50px auto;
+    padding:30px;
+    display:flex;
+    background:#373d52;
+    border-radius:15px;
+}
+
+.left{
+    width:65%;
+}
+
+.right{
+    width:35%;
+    padding:40px;
+    color:white;
+    position:relative;
+}
+
+.calendar{
+    width:100%;
+    min-height:590px;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+}
+
+.month{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height:80px;
+}
+
+.date{
+    font-size:26px;
+    font-weight:600;
+    color:#666;
+}
+
+.month button{
+    width:45px;
+    height:45px;
+    padding:0;
+    border:none;
+    border-radius:50%;
+    background:#f2f6ff;
+    color:#4f89e8;
+    font-size:30px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.month button:hover{
+    background:#4f89e8;
+    color:white;
+    transform:scale(1.08);
+}
+
+.weekdays{
+    width:100%;
+    display:flex;
+    margin-top:90px;
+    color:#666;
+}
+
+.weekdays div{
+    flex:0 0 14.285714%;
+    width:14.285714%;
+    text-align:center;
+    padding:15px 0;
+    font-size:17px;
+}
+
+.days{
+    width:100%;
+    display:flex;
+    flex-wrap:wrap;
+}
+
+.day{
+    flex:0 0 14.285714%;
+    width:14.285714%;
+    height:65px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#333;
+    cursor:pointer;
+    border:1px solid #f2f2f2;
+    transition:.2s;
+}
+
+.day:hover{
+    background:#edf4ff;
+    color:#4f89e8;
+}
+
+.other{
+    color:#bbb;
+}
+
+.today{
+    color:#4f89e8;
+    font-weight:bold;
+}
+
+.day.active{
+    background:#4f89e8;
+    color:white;
+    border-radius:10px;
+}
+
+.goto-today{
+    margin-top:25px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.goto{
+    display:flex;
+}
+
+.date-input{
+    width:150px;
+    height:44px;
+    padding:0 15px;
+    border:1px solid #d7ddeb;
+    border-radius:12px 0 0 12px;
+    outline:none;
+}
+
+.date-input:focus{
+    border-color:#4f89e8;
+}
+
+.goto-btn{
+    height:44px;
+    padding:0 20px;
+    border:none;
+    border-radius:0 12px 12px 0;
+    background:#4f89e8;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.goto-btn:hover{
+    background:#3676d8;
+}
+
+.today-btn{
+    height:44px;
+    padding:0 22px;
+    border:none;
+    border-radius:12px;
+    background:#edf4ff;
+    color:#4f89e8;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.today-btn:hover{
+    background:#4f89e8;
+    color:white;
+}
+
+.today-date{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:70px 0 50px;
+}
+
+.event-day{
+    font-size:40px;
+}
+
+.event-date{
+    color:#ddd;
+}
+
+.no-event{
+    margin-top:100px;
+    text-align:center;
+    color:#aaa;
+}
+
+.event{
+    background:#454c64;
+    border-radius:10px;
+    padding:15px;
+    margin-bottom:12px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.event-title{
+    font-weight:bold;
+}
+
+.event-time{
+    font-size:14px;
+    color:#ccc;
+    margin-top:5px;
+}
+
+.delete{
+    border:none;
+    background:#fff0ef;
+    color:#d84238;
+    padding:8px 14px;
+    border-radius:9px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:.2s;
+}
+
+.delete:hover{
+    background:#d84238;
+    color:white;
+}
+
+.add-event{
+    position:absolute;
+    right:30px;
+    bottom:30px;
+    width:58px;
+    height:58px;
+    border:none;
+    border-radius:50%;
+    background:#4f89e8;
+    color:white;
+    font-size:30px;
+    cursor:pointer;
+    box-shadow:0 8px 20px rgba(0,0,0,.2);
+    transition:.2s;
+}
+
+.add-event:hover{
+    transform:scale(1.08);
+    background:#3676d8;
+}
+
+.form{
+    display:none;
+    position:absolute;
+    right:30px;
+    bottom:100px;
+    width:300px;
+    padding:20px;
+    background:white;
+    color:#333;
+    border-radius:15px;
+    box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+
+.form.show{
+    display:block;
+}
+
+.form-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+}
+
+.close{
+    border:none;
+    background:none;
+    font-size:24px;
+    cursor:pointer;
+}
+
+.form input{
+    width:100%;
+    padding:12px;
+    margin-bottom:10px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    outline:none;
+}
+
+.add{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#4f89e8;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.add:hover{
+    background:#3676d8;
+}
+
+.ai{
+    position:fixed;
+    left:35px;
+    bottom:35px;
+    width:105px;
+    height:105px;
+    border-radius:50%;
+    background:#4f89e8;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:21px;
+}
+
+@media(max-width:900px){
+    nav{
+        height:auto;
+        flex-direction:column;
+        gap:20px;
+        padding:20px;
+    }
+
+    .logo{
+        font-size:38px;
+    }
+
+    nav ul{
+        gap:20px;
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+    .container{
+        flex-direction:column;
+    }
+
+    .left,
+    .right{
+        width:100%;
+    }
+
+    .right{
+        min-height:400px;
+    }
+}
+</style>
 </head>
 
 <body>
 
-<!-- NAVIGATION BAR -->
 <nav>
-    <label class="logo">Study Site</label>
+<a href="index.html" class="logo">Study Site</a>
 
-    <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="calendar.html">Calendar</a></li>
-        <li><a href="Pomodoro.html">Pomodoro</a></li>
-        <li><a href="Stopwatch.html">Stopwatch</a></li>
-    </ul>
+<ul>
+<li><a href="index.html">HOME</a></li>
+<li><a href="calender.html">CALENDAR</a></li>
+<li><a href="pomodoro.html">POMODORO</a></li>
+<li><a href="stopwatch.html">STOPWATCH</a></li>
+</ul>
 </nav>
 
-
-<!-- CALENDAR -->
 <div class="container">
 
-    <div class="left">
+<div class="left">
 
-        <div class="calendar">
+<div class="calendar">
 
-            <div class="month">
-                <i class="fas fa-angle-left prev"></i>
+<div class="month">
+<button class="prev">‹</button>
+<div class="date"></div>
+<button class="next">›</button>
+</div>
 
-                <div class="date">September 2026</div>
+<div class="weekdays">
+<div>Mon</div>
+<div>Tue</div>
+<div>Wed</div>
+<div>Thu</div>
+<div>Fri</div>
+<div>Sat</div>
+<div>Sun</div>
+</div>
 
-                <i class="fas fa-angle-right next"></i>
+<div class="days"></div>
+
+<div class="goto-today">
+
+<div class="goto">
+<input class="date-input" placeholder="MM/YYYY" maxlength="7">
+<button class="goto-btn">Go</button>
+</div>
+
+<button class="today-btn">Today</button>
+
+</div>
+
+</div>
+</div>
+
+<div class="right">
+
+<div class="today-date">
+<div class="event-day"></div>
+<div class="event-date"></div>
+</div>
+
+<div class="events"></div>
+
+<div class="form">
+
+<div class="form-header">
+<b>Add Task</b>
+<button class="close">×</button>
+</div>
+
+<input class="task-name" placeholder="Task name">
+<input class="from" placeholder="From 09:00">
+<input class="to" placeholder="To 10:00">
+
+<button class="add">Add Task</button>
+
+</div>
+
+<button class="add-event">+</button>
+
+</div>
+
+</div>
+
+<div class="ai">🤖 AI</div>
+
+<script>
+const $=s=>document.querySelector(s);
+const months=["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+let now=new Date();
+let month=now.getMonth();
+let year=now.getFullYear();
+let active=now.getDate();
+
+let tasks=[];
+
+try{
+    tasks=JSON.parse(localStorage.getItem("events")||"[]");
+    if(!Array.isArray(tasks)) tasks=[];
+}catch{
+    tasks=[];
+}
+
+const save=()=>localStorage.setItem("events",JSON.stringify(tasks));
+
+function draw(){
+
+    const first=(new Date(year,month,1).getDay()+6)%7;
+    const last=new Date(year,month+1,0).getDate();
+    const previous=new Date(year,month,0).getDate();
+    const lastDay=(new Date(year,month+1,0).getDay()+6)%7;
+    const next=6-lastDay;
+
+    let html="";
+
+    $(".date").textContent=`${months[month]} ${year}`;
+
+    for(let i=first;i>0;i--){
+        html+=`<div class="day other prev-date">${previous-i+1}</div>`;
+    }
+
+    for(let i=1;i<=last;i++){
+
+        const today=
+        i===now.getDate() &&
+        month===now.getMonth() &&
+        year===now.getFullYear();
+
+        html+=`
+        <div class="day ${today?"today":""} ${i===active?"active":""}">
+        ${i}
+        </div>`;
+    }
+
+    for(let i=1;i<=next;i++){
+        html+=`<div class="day other next-date">${i}</div>`;
+    }
+
+    $(".days").innerHTML=html;
+
+    const selected=new Date(year,month,active);
+
+    $(".event-day").textContent=
+    selected.toLocaleDateString("en-GB",{weekday:"short"});
+
+    $(".event-date").textContent=
+    `${active} ${months[month]} ${year}`;
+
+    showTasks();
+
+    document.querySelectorAll(".day").forEach(day=>{
+
+        day.onclick=()=>{
+
+            active=Number(day.textContent);
+
+            if(day.classList.contains("prev-date")){
+                month--;
+                if(month<0){
+                    month=11;
+                    year--;
+                }
+            }
+
+            if(day.classList.contains("next-date")){
+                month++;
+                if(month>11){
+                    month=0;
+                    year++;
+                }
+            }
+
+            draw();
+        };
+    });
+}
+
+function showTasks(){
+
+    const list=tasks
+    .map((task,index)=>({...task,index}))
+    .filter(task=>
+        task.day===active &&
+        task.month===month+1 &&
+        task.year===year
+    );
+
+    $(".events").innerHTML=list.length
+    ?list.map(task=>`
+        <div class="event">
+            <div>
+                <div class="event-title">${task.title}</div>
+                <div class="event-time">${task.from} - ${task.to}</div>
             </div>
 
-            <div class="weekdays">
-                <div>Sun</div>
-                <div>Mon</div>
-                <div>Tue</div>
-                <div>Wed</div>
-                <div>Thu</div>
-                <div>Fri</div>
-                <div>Sat</div>
-            </div>
-
-            <div class="days"></div>
-
-            <div class="goto-today">
-
-                <div class="goto">
-                    <input
-                        type="text"
-                        placeholder="mm/yyyy"
-                        class="date-input"
-                    >
-
-                    <button class="goto-btn">Go</button>
-                </div>
-
-                <button class="today-btn">Today</button>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- EVENTS -->
-    <div class="right">
-
-        <div class="today-date">
-            <div class="event-day">Wed</div>
-            <div class="event-date">16th September 2026</div>
-        </div>
-
-        <div class="events">
-
-            <div class="add-event-wrapper">
-
-                <div class="add-event-header">
-                    <div class="title">Add Event</div>
-                    <i class="fas fa-times close"></i>
-                </div>
-
-                <div class="add-event-body">
-
-                    <div class="add-event-input">
-                        <input
-                            type="text"
-                            placeholder="Event Name"
-                            class="event-name"
-                        >
-                    </div>
-
-                    <div class="add-event-input">
-                        <input
-                            type="text"
-                            placeholder="Event Time From"
-                            class="event-time-from"
-                        >
-                    </div>
-
-                </div>
-
-                <div class="add-event-footer">
-                    <button class="add-event-btn">Add Event</button>
-                </div>
-
-            </div>
-
-            <button class="add-event">
-                <i class="fas fa-plus"></i>
+            <button class="delete" data-index="${task.index}">
+                Delete
             </button>
-
         </div>
+    `).join("")
+    :`<div class="no-event"><h3>No Tasks</h3></div>`;
 
-    </div>
+    document.querySelectorAll(".delete").forEach(button=>{
 
-</div>
+        button.onclick=()=>{
 
+            if(confirm("Delete this task?")){
 
-<!-- AI CHATBOT BUTTON -->
-<div class="ai_chatbot">
-    <span class="ai_icon">🤖 AI</span>
-    <span class="ai_text">Ask Doubts</span>
-</div>
-<div class="ai_fullscreen">
-    <button class="ai_close">X</button>
-    <h1 id="heading">Ask Your Doubts Here</h1>
-    <textarea class="searchbar"></textarea>
-    <p class="aioutput"><span>Ask Doubt. Any Time.</span></p>
-</div>
+                tasks.splice(
+                    Number(button.dataset.index),
+                    1
+                );
+
+                save();
+                draw();
+            }
+        };
+    });
+}
+
+$(".prev").onclick=()=>{
+
+    month--;
+
+    if(month<0){
+        month=11;
+        year--;
+    }
+
+    active=1;
+    draw();
+};
+
+$(".next").onclick=()=>{
+
+    month++;
+
+    if(month>11){
+        month=0;
+        year++;
+    }
+
+    active=1;
+    draw();
+};
+
+$(".today-btn").onclick=()=>{
+
+    now=new Date();
+
+    month=now.getMonth();
+    year=now.getFullYear();
+    active=now.getDate();
+
+    draw();
+};
+
+$(".goto-btn").onclick=()=>{
+
+    const [m,y]=$(".date-input")
+    .value
+    .split("/")
+    .map(Number);
+
+    if(m>=1 && m<=12 && y){
+
+        month=m-1;
+        year=y;
+        active=1;
+
+        draw();
+
+    }else{
+
+        alert("Enter MM/YYYY");
+    }
+};
+
+$(".add-event").onclick=()=>{
+    $(".form").classList.toggle("show");
+};
+
+$(".close").onclick=()=>{
+    $(".form").classList.remove("show");
+};
+
+$(".add").onclick=()=>{
+
+    const title=$(".task-name").value.trim();
+    const from=$(".from").value.trim();
+    const to=$(".to").value.trim();
+
+    if(!title || !from || !to){
+        alert("Fill all fields");
+        return;
+    }
+
+    tasks.push({
+        day:active,
+        month:month+1,
+        year,
+        title,
+        from,
+        to
+    });
+
+    save();
+
+    $(".task-name").value="";
+    $(".from").value="";
+    $(".to").value="";
+
+    $(".form").classList.remove("show");
+
+    draw();
+};
+
+draw();
+</script>
 
 </body>
 </html>
