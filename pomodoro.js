@@ -2,25 +2,25 @@ let timerDisplay = document.getElementById("timer") || document.querySelector(".
 let startButton = document.getElementById("start") || document.querySelector(".start");
 let resetButton = document.getElementById("reset");
 let pauseButton = document.getElementById("pause");
-
 let workInput = document.getElementById("work-time");
 let breakInput = document.getElementById("break-time");
-
+let roundInput = document.getElementById("round-count");
 let alarmSound = document.getElementById("beep-sound");
+
+const timerModeDisplay = document.getElementById("timer-mode");
+const completedSessionsDisplay = document.getElementById("completedSessions");
+const TotaltimeDisplay = document.getElementById("Totaltime");
+const TotalstreaksDisplay = document.getElementById("Totalstreaks");
 
 let isRunning = false;
 let isWorkTime = true;
 let timerInterval = null;
 let timerRemaining = null;
-
-let sessionCount = 0;
 let completedSessions = 0;
 let totalTime = 0;
 let Totalstreaks = 0;
-
-const completedSessionsDisplay = document.getElementById("completedSessions");
-const TotaltimeDisplay = document.getElementById("Totaltime");
-const TotalstreaksDisplay = document.getElementById("Totalstreaks");
+let totalRounds = 1;
+let currentRoundCount = 0;
 
 function readStat(key, fallbackValue = 0) {
     try {
@@ -33,7 +33,11 @@ function readStat(key, fallbackValue = 0) {
 
 function getCurrentDuration() {
     const minutes = isWorkTime ? Number(workInput.value || 25) : Number(breakInput.value || 5);
-    return minutes * 60;
+    return Math.max(1, minutes) * 60;
+}
+
+function getRoundLimit() {
+    return Math.max(1, Number(roundInput?.value || 1));
 }
 
 function addZoomEffect() {
@@ -43,10 +47,23 @@ function addZoomEffect() {
     }
 }
 
+function updateModeText() {
+    if (!timerModeDisplay) return;
+
+    if (isWorkTime) {
+        timerModeDisplay.textContent = "Work Mode";
+        timerModeDisplay.style.color = "#ff9800";
+    } else {
+        timerModeDisplay.textContent = "Rest Mode";
+        timerModeDisplay.style.color = "#4caf50";
+    }
+}
+
 workInput.addEventListener("input", () => {
     if (!isRunning) {
         isWorkTime = true;
         timerRemaining = Number(workInput.value || 25) * 60;
+        updateModeText();
         updateDisplay(timerRemaining);
         toggleButtons();
     }
@@ -56,6 +73,7 @@ breakInput.addEventListener("input", () => {
     if (!isRunning) {
         isWorkTime = false;
         timerRemaining = Number(breakInput.value || 5) * 60;
+        updateModeText();
         updateDisplay(timerRemaining);
         toggleButtons();
     }
@@ -92,12 +110,14 @@ function updateStats() {
     }
 }
 
-
 function startTimer() {
     if (isRunning) return;
 
+    totalRounds = getRoundLimit();
+
     if (timerInterval) {
         clearInterval(timerInterval);
+        timerInterval = null;
     }
 
     if (timerRemaining === null || timerRemaining <= 0) {
@@ -105,37 +125,56 @@ function startTimer() {
     }
 
     isRunning = true;
-
     const sessionDuration = timerRemaining;
 
     timerInterval = setInterval(() => {
-        if (timerRemaining <= 0) {
+        if (timerRemaining <= 1) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+
             if (alarmSound && typeof alarmSound.play === "function") {
                 alarmSound.play();
             }
-            clearInterval(timerInterval);
-            isRunning = false;
 
             if (isWorkTime) {
                 completedSessions++;
                 totalTime += sessionDuration;
                 Totalstreaks++;
+                currentRoundCount++;
                 saveStats();
-
-        
             }
 
+            if (isWorkTime && currentRoundCount >= totalRounds) {
+                isWorkTime = true;
+                currentRoundCount = 0;
+                timerRemaining = Number(workInput.value || 25) * 60;
+                updateModeText();
+                updateStats();
+                updateDisplay(timerRemaining);
+                if (timerDisplay && timerDisplay.style) {
+                    timerDisplay.style.color = "black";
+                }
+                isRunning = false;
+                toggleButtons();
+                return;
+            }
 
             isWorkTime = !isWorkTime;
             timerRemaining = getCurrentDuration();
+            updateModeText();
+            if (timerDisplay && timerDisplay.style) {
+                timerDisplay.style.color = isWorkTime ? "black" : "#4caf50";
+            }
             updateStats();
             updateDisplay(timerRemaining);
             addZoomEffect();
+            isRunning = false;
             toggleButtons();
+            startTimer();
             return;
         }
 
-        timerRemaining--;
+        timerRemaining -= 1;
         updateDisplay(timerRemaining);
         addZoomEffect();
     }, 1000);
@@ -157,11 +196,13 @@ function resetTimer() {
     clearInterval(timerInterval);
     timerInterval = null;
     isWorkTime = true;
+    currentRoundCount = 0;
     timerRemaining = Number(workInput.value || 25) * 60;
     updateDisplay(timerRemaining);
     if (timerDisplay && timerDisplay.style) {
         timerDisplay.style.color = "black";
     }
+    updateModeText();
     toggleButtons();
 }
 
@@ -185,6 +226,7 @@ loadStats();
 if (timerRemaining === null) {
     timerRemaining = Number(workInput.value || 25) * 60;
 }
+updateModeText();
 updateDisplay(timerRemaining);
 updateStats();
 toggleButtons();
@@ -192,7 +234,4 @@ toggleButtons();
 startButton.addEventListener("click", startTimer);
 pauseButton.addEventListener("click", pauseTimer);
 resetButton.addEventListener("click", resetTimer);
-
-
-
 
