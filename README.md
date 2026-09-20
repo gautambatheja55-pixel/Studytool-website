@@ -7,6 +7,12 @@ It features:
 <li>Calendar (To plan your events accordingly)</li>
 <li>A modern To-Do List to manage your daily tasks</li>
   <br></ol></b>
+
+  <h1>Why we built this? </h1><br>
+  <h3>To make study as simple as possible with all necessary things required for study in a Single Tab!/h3>
+   <br>
+   <h1>TRY IT OUT HERE! <br> <a href="https://studytool-website.vercel.app/">Here</a>
+   </h1>
   <img width="1280" height="867" alt="Screenshot 2026-09-20 233648" src="https://github.com/user-attachments/assets/1d6647e3-e2b4-481d-8590-4608f906f837" />
 <img width="1280" height="854" alt="Screenshot 2026-09-20 233627" src="https://github.com/user-attachments/assets/e1e059c5-bb71-4c79-9b03-c0abc81f762f" />
 <img width="1267" height="862" alt="Screenshot 2026-09-20 233608" src="https://github.com/user-attachments/assets/4ea1ce30-9502-40c0-87f6-59c0927c497d" />
