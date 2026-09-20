@@ -7,6 +7,80 @@ const taskInput=document.getElementById("taskInput");
 const addTask=document.querySelector(".start");
 const taskList=document.querySelector(".taskList");
 
+
+function saveTasks(){
+    const tasks=[]
+    document.querySelectorAll(".taskList li").forEach(li => {
+        tasks.push({
+            text: li.textContent,
+            completed: li.classList.contains("completed")
+        });
+    });
+    localStorage.setItem("todoTasks", JSON.stringify(tasks));
+
+}
+
+function createTaskElement(text,isCompleted){
+    const li=document.createElement("li");
+    li.textContent=text;
+    if (isCompleted){
+        li.classList.add("completed");
+    };
+    let holdTimer;
+    let isHolding=false;
+
+    function startHold(){
+        isHolding=false;
+        holdTimer=setTimeout(() => {
+            isHolding=true;
+            li.remove();
+            saveTasks();
+        },600);
+    }
+    function cancelHold(){
+        clearTimeout(holdTimer);
+    }
+
+    li.addEventListener("mousedown",startHold);
+    li.addEventListener("mouseup",cancelHold);
+    li.addEventListener("mouseleave",cancelHold);
+
+    li.addEventListener("touchstart",startHold);
+    li.addEventListener("touchend",cancelHold);
+    li.addEventListener("touchcancel",cancelHold);
+  
+    li.addEventListener("click", function(){
+        if (!isHolding){
+            li.classList.toggle("completed");
+            saveTasks();
+        }
+    });
+    taskList.appendChild(li);
+}
+
+
+function loadTasks(){
+    const saved=localStorage.getItem("todoTasks");
+    if (saved){
+        const tasks=JSON.parse(saved);
+        tasks.forEach(task => {
+            createTaskElement(task.text,task.completed);
+        });
+    }
+}
+
+
+function figureityourself(){
+    const todotask=taskInput.value.trim();
+    if (todotask === "'") return;
+    createTaskElement(todotask,false);
+    saveTasks();
+    taskInput.value="";
+}
+
+
+document.addEventListener("DOMContentLoaded", loadTasks);
+
 chatbot.addEventListener("click", function(){
     fullscreen.classList.add("open");
 });
@@ -53,18 +127,7 @@ taskInput.addEventListener("keydown",function(event){
         event.preventDefault();
         figureityourself();
     }
+});
 
 addTask.addEventListener("click",figureityourself);
-
-function figureityourself(){
-    const todotask=taskInput.value.trim();
-    const li=document.createElement("li");
-    li.textContent=todotask;
-    li.addEventListener("click",function(){
-    li.classList.toggle("completed");
-    });
-    taskList.appendChild(li);
-    taskInput.value="";
-    };
-});
 
