@@ -1,11 +1,15 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+
     <link rel="stylesheet" href="style.css">
     <script defer src="Stopwatch.js"></script>
 </head>
+
 <body>
 
 <nav>
@@ -14,38 +18,146 @@
     <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="calendar.html">Calendar</a></li>
-         <li><a href="pomodoro.html">Pomodoro</a></li>
+        <li><a href="pomodoro.html">Pomodoro</a></li>
         <li><a href="Stopwatch.html">Stopwatch</a></li>
     </ul>
 </nav>
 
-    <div class="stopwatch">
-        <div class="stopwatch-section">
-            <div class="watch" id="watch">00:00:00:00</div>
-            <div class="controls">
-                <button id="startBtn" onclick="Start()">Start</button>
-                <button id="stopBtn" onclick="Stop()">Stop</button>
-                <button id="resetBtn" onclick="Reset()">Reset</button>
-                <style>
-.resetBtn {
-  background-color: #04AA6D;
-  color: white;
-  font-size: 15px;
-  padding: 12px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
 
-.resetBtn:hover {
-  background-color: #059862;
-}
-</style>
-                   <button class="resetBtn">reset</button>
-                
-            </div>
+<div class="stopwatch">
+
+    <div class="stopwatch-section"
+         style="
+            background: white;
+            padding: 45px;
+            border-radius: 20px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.12);
+            text-align: center;
+            max-width: 550px;
+            width: 90%;
+            margin: 80px auto;
+         ">
+
+        <!-- Stopwatch Icon -->
+        <div style="
+            font-size: 35px;
+            margin-bottom: 10px;
+        ">
+            ⏱
         </div>
+
+
+        <!-- Title -->
+        <h1 style="
+            margin: 0;
+            font-size: 28px;
+            color: #222;
+        ">
+            Stopwatch
+        </h1>
+
+        <p style="
+            color: #888;
+            margin-top: 8px;
+            margin-bottom: 30px;
+        ">
+            Track your time
+        </p>
+
+
+        <!-- Timer Box -->
+        <div style="
+            background: #f6f7f9;
+            border: 1px solid #e5e5e5;
+            border-radius: 15px;
+            padding: 30px 20px;
+            margin-bottom: 25px;
+        ">
+
+            <div class="watch"
+                 id="watch"
+                 style="
+                    font-family: monospace;
+                    font-size: 50px;
+                    font-weight: bold;
+                    color: #222;
+                    letter-spacing: 2px;
+                 ">
+                00:00:00:00
+            </div>
+
+        </div>
+
+
+        <!-- Controls -->
+        <div class="controls"
+             style="
+                display: flex;
+                justify-content: center;
+                gap: 12px;
+             ">
+
+
+            <!-- Start -->
+            <button
+                id="startBtn"
+                onclick="Start()"
+                style="
+                    background: #222;
+                    color: white;
+                    border: none;
+                    padding: 13px 28px;
+                    border-radius: 10px;
+                    font-size: 15px;
+                    font-weight: bold;
+                    cursor: pointer;
+                ">
+                ▶ Start
+            </button>
+
+
+            <!-- Stop -->
+            <button
+                id="stopBtn"
+                onclick="Stop()"
+                style="
+                    background: #ef4444;
+                    color: white;
+                    border: none;
+                    padding: 13px 28px;
+                    border-radius: 10px;
+                    font-size: 15px;
+                    font-weight: bold;
+                    cursor: pointer;
+                ">
+                ■ Stop
+            </button>
+
+
+            <!-- Reset -->
+            <button
+                id="resetBtn"
+                onclick="Reset()"
+                style="
+                    background: #eeeeee;
+                    color: #333;
+                    border: 1px solid #dddddd;
+                    padding: 13px 28px;
+                    border-radius: 10px;
+                    font-size: 15px;
+                    font-weight: bold;
+                    cursor: pointer;
+                ">
+                ↻ Reset
+            </button>
+
+        </div>
+
     </div>
+
+</div>
 
 </body>
 </html>
+```
+
