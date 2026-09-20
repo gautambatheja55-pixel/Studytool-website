@@ -18,7 +18,7 @@ nav {
     width: 100%;
 }
 
-label.logo {
+.logo {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     color: white;
     font-size: 40px;
@@ -67,7 +67,7 @@ a:hover {
 }
 
 @media (max-width: 1050px) {
-    label.logo {
+    .logo {
         padding-left: 30px;
     }
 
@@ -81,7 +81,7 @@ a:hover {
         display: block;
     }
 
-    label.logo {
+    .logo {
         font-size: 22px;
     }
 
@@ -275,7 +275,50 @@ html {
 /* Pomodoro css starts here */
 .pomodoro{
     display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    padding: 20px;
 }
+
+.settings-section{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.inputs-container{
+    display: flex;
+    gap: 20px;
+}
+
+.stats-container{
+    display: flex;
+    gap: 30px;
+    margin-left:90px ;
+    margin-top: 40px;
+}
+
+.stat{
+    background-color: #2b2b2b;
+    color: #ffffff;
+    width: 90px;
+    padding: 15px 0px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 5px 5px 10px 2px rgba(0,0,0,0.3);
+}
+
+.stat-value{
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.stat-label{
+    font-size: 12px;
+    color: #b3b3b3;
+}
+
 .timer{
     margin-top: 60px;
     margin-left: 30px;
@@ -297,7 +340,40 @@ html {
     border: 1px solid;
     color:#0082e6 ;
     cursor: pointer;
+}
 
+#reset{
+    width: 96px;
+    height: 50px;
+    border-radius: 35px;
+    border: 1px solid;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-left: 20px;
+    color: #e60021;
+}
+
+#pause{
+    width: 96px;
+    height: 50px;
+    margin-top: 20px;
+    margin-left: 20px;
+    cursor: pointer;
+    border: 1px solid;
+    border-radius: 35px;
+}
+
+.start, #reset, #pause{
+    transition: transform 0.5s ease, box-shadow 0.5s ease;background-color: 0.3 ease;
+}
+
+.start:hover, #reset:hover, #pause:hover{
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.start:active, #reset:active, #pause:active{
+    transform: scale(0.9);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);    
 }
 .timer-section{
     display: flex;
@@ -308,6 +384,32 @@ html {
     cursor: pointer;
 }
 
+.time-input, .break-input{
+    margin-top: 65px;
+    margin-left: 90px;
+    font-size: 24px;
+}
+
+.time-input label, .break-input label{
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.time-input input, .break-input input{
+    width: 60px;
+    height: 35px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 16px;
+    margin-top: 20px;
+    padding: 5px;
+    border: 2px solid;
+}
+
+.time-input input:focus, .break-input input:focus{
+    border-color: #e60021;
+    outline: none;
+}
 
 
 /* pomodoro css ends here */
